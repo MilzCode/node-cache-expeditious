@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			body {
+				background-color: #383838;
+				color: #fff;
+			}
+			.container {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				height: 100vh;
+			}
+			.circle-red-btn {
+				background-color: red;
+				border-radius: 50%;
+				width: 50vw;
+				height: 50vw;
+				border: none;
+				color: white;
+				/* shadow */
+				box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+				transition: all 0.05s ease-in-out;
+				font-weight: bold;
+				font-size: 35px;
+			}
+			.circle-red-btn:active {
+				transform: scale(0.9);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<button id="btn" class="circle-red-btn">¡ENVIAR!</button>
+		</div>
+		<script>
+			const btn = document.getElementById('btn');
+			btn.addEventListener('click', () => {
+				// vibrations
+				navigator.vibrate(200);
+				const host = 'http://192.168.1.123:8088/api/alert';
+				// post {alert:1} to host
+				fetch(host, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ alert: 1 }),
+				})
+					.then((res) => res.json())
+					.then((data) => console.log(data))
+					.catch((err) => console.log(err));
+			});
+		</script>
+	</body>
+</html>

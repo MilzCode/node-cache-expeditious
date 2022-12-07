@@ -62,6 +62,8 @@ app.post('/api/alert', (req, res) => {
 		res.status(500).json({ error: error.message });
 	}
 });
+//servir index.html
+app.use(express.static('public'));
 
 const port = 8088;
 app.listen(port, () => {
